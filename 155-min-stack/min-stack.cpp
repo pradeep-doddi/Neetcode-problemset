@@ -1,31 +1,37 @@
 class MinStack {
 public:
-        vector<int>st;
-        int currmin = INT_MAX;
+    vector<int>st;
+    vector<int>lar;
     MinStack() {
-
+        
     }
     
     void push(int val) {
         st.push_back(val);
-        if(val<currmin) currmin = val;
+        if(lar.empty()){
+            lar.push_back(val);
+        }
+        else{
+            if(lar.back()>val){
+                lar.push_back(val);
+            }
+            else{
+                lar.push_back(lar.back());
+            }
+        }
     }
     
     void pop() {
         st.pop_back();
-        currmin=INT_MAX;
-        for(auto i:st){
-            if (i<currmin) currmin=i;
-        }
+        lar.pop_back();
     }
     
     int top() {
         return st.back();
-        
     }
     
     int getMin() {
-        return currmin;
+        return lar.back();
     }
 };
 
