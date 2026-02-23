@@ -2,17 +2,15 @@ class Solution {
 public:
     int heightChecker(vector<int>& heights) {
         int ans=0;
-        vector<int>expected;
-        for(auto i : heights){
-            expected.push_back(i);
-        }
-        sort(expected.begin(),expected.end());
-        for(auto i : expected){
-            cout<<i<<" ";
-        }
-        for(int i=0;i<heights.size();i++){
-            if(heights[i] != expected[i]){
-                ans += 1;
+        int idx=0;
+        vector<int>exp(101,0);
+        for(auto i : heights ) exp[i]++;
+        for(int i=1;i<exp.size();i++){
+            while(exp[i]--){
+                if( i != heights[idx]){
+                    ans += 1;
+                }
+                idx = idx+1;
             }
         }
         return ans;
