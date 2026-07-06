@@ -10,10 +10,10 @@ public:
             else{
                
                 currentsum=nums[i];
+                maxi=max(currentsum,maxi);
                 
             }
-             maxi=max(currentsum,maxi);
-             
+            maxi = max(currentsum,maxi);
             
         }
         return maxi;
