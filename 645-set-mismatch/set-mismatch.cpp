@@ -1,25 +1,16 @@
-
-
 class Solution {
 public:
-    std::vector<int> findErrorNums(std::vector<int>& nums) {
-        int dup = -1, missing = -1;
-        
-        for (int i = 1; i <= nums.size(); i++) {
-            int count = 0;
-            for (int j = 0; j < nums.size(); j++) {
-                if (nums[j] == i) {
-                    count++;
-                }
-            }
-            if (count == 2) {
-                dup = i;
-            } else if (count == 0) {
-                missing = i;
-            }
+    vector<int> findErrorNums(vector<int>& nums) {
+        vector<int>arr(nums.size()+1,0);
+        int dup=0;
+        int missing=0;
+        for(int i=0;i<nums.size();i++){
+            arr[nums[i]] += 1;
         }
-        
-        return {dup, missing};
+        for(int i=1;i<arr.size();i++){
+            if(arr[i]==0) missing= i;
+            if(arr[i]==2) dup=i;
+        }
+        return {dup,missing};
     }
 };
-
