@@ -1,28 +1,14 @@
 class Solution {
 public:
     int countStudents(vector<int>& students, vector<int>& sandwiches) {
-        queue<int>stu;
-        for(auto i : students){
-            stu.push(i);
+        int count[2]={0};
+        for(int i : students){
+            count[i]++;
         }
-        stack<int>snd;
-        for(int i=sandwiches.size()-1;i>=0;i--){
-            snd.push(sandwiches[i]);
+        for(int i : sandwiches){
+            if(count[i]==0) break;
+            else count[i]--;
         }
-        int rotations= 0;
-        while(rotations != stu.size()){
-            if(stu.front()==snd.top()){
-                stu.pop();
-                snd.pop();
-                rotations =0;
-            }
-            else{
-                int x=stu.front();
-                stu.pop();
-                stu.push(x);
-                rotations += 1;
-            }
-        }
-        return stu.size();
+        return count[0]+count[1];
     }
 };
