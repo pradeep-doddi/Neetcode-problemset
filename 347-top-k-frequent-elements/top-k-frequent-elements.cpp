@@ -1,19 +1,24 @@
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        map<int,int>freq;
+        map<int,int>frq;
         vector<int>ans;
-        for(auto i : nums){
-            freq[i] += 1;
+        for(auto i:nums){
+            frq[i] += 1;
         }
-        priority_queue<pair<int,int>>pq;
-        for(auto ele : freq){
-            pq.push({ele.second,ele.first});
+        vector<vector<int>>buck(nums.size()+1);
+        for(auto it : frq){
+            int index=it.second;
+            int val=it.first;
+            buck[index].push_back(val);
         }
-        while(k--){
-            ans.push_back(pq.top().second);
-            pq.pop();
+        for(int i=buck.size()-1;i>=0;i--){
+            for(auto num : buck[i]){
+                ans.push_back(num);
+                if(ans.size()==k) return ans;
+            }
         }
         return ans;
     }
+
 };
