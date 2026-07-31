@@ -1,18 +1,20 @@
 class Solution {
 public:
     string frequencySort(string s) {
-        map<char,int>frq;
-        string ans="";
-        for(auto i : s){
-            frq[i] += 1;
+        map<char,int>mp;
+        string ans = "";
+        for(auto ch: s  ){
+            mp[ch] += 1;
         }
-        vector<pair<char,int>>vec(frq.begin(),frq.end());
-        sort(vec.begin(),vec.end(), [](const auto a, const auto b){
-            return a.second>b.second;
-        });
-        for(auto it : vec){
-            ans += string(it.second,it.first);
+        vector<vector<char>>buck(s.size()+1);
+        for(auto it : mp){
+            buck[it.second].push_back(it.first);
         }
-        return ans;
+        for(int i=buck.size()-1;i>=0;i--){
+            for(auto j : buck[i]){
+                ans += string(i,j);
+            }
+        }
+        return ans;   
     }
 };
