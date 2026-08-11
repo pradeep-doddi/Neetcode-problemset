@@ -1,23 +1,18 @@
 class Solution {
 public:
     string makeGood(string s) {
-        string ans="";
         stack<char>st;
-        for(int i=0;i<s.size();i++){
-            if(st.empty() || st.top()==s[i]){
-                st.push(s[i]);
+        string ans="";
+        for(auto i : s ){
+            if(!st.empty() && tolower(st.top())==tolower(i) && isupper(st.top()) != isupper(i)){
+                st.pop();
             }
             else{
-                if(tolower(st.top())==tolower(s[i])){
-                    st.pop();
-                }
-                else{
-                    st.push(s[i]);
-                }
+                st.push(i);
             }
         }
-        while(!st.empty()){ 
-            ans.push_back(st.top());
+        while(!st.empty()){
+            ans += st.top();
             st.pop();
         }
         reverse(ans.begin(),ans.end());
